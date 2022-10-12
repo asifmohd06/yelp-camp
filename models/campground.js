@@ -42,7 +42,7 @@ imageSchema.virtual('thumbnail').get(function(){// virtual properties are define
     return this.url.replace('/upload','/upload/w_300')
 })
 campgroundSchema.virtual('properties.popupMarkup').get(function(){ 
-return `<strong><a href=/campgrounds/${this._id}>${this.title}</a><strong><br>Price: $${this.price}`
+return `<strong><a href=/campgrounds/${this._id}>${this.title}</a><strong><br>Price: ₹ ${this.price}`
 //this method wont be availabe in the Js
  //By default, Mongoose does not include virtuals when you convert a  document to JSON
  // so we need to tell mongoose to include virtuals (look opts)
