@@ -1,0 +1,9 @@
+<% layout('layouts/boilerPlate') %>
+
+    <div class="row mt-5 mb-4">
+        <% for(let post of posts) {%>
+            <li>
+                <%= post.title %>
+            </li>
+            <% } %>
+    </div>

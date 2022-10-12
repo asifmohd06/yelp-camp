@@ -1,0 +1,77 @@
+<% layout('layouts/boilerPlate') %>
+
+    <div class="row">
+        <div class="box shadow col-md-6 offset-md-3 mb-3 mt-5 pb-4">
+            <h1 class="text-center mb-3 mt-4">Edit Campground</h1>
+            <form action="/campgrounds/<%= camp._id %>?_method=PUT" method="POST" class="needs-validation" enctype="multipart/form-data" novalidate>
+                <div class="mb-3">
+                    <label class="form-label" for="title">Title</label>
+                    <input class="form-control" type="text" id="title" name="campground[title]"
+                        value="<%= camp.title %> " required>
+                </div>
+                <div class="mb-3">
+
+                    <label class="form-label" for="description">Description</label>
+                    <textarea class="form-control" type="text" id="description" name="campground[description]"
+                        id="description" cols=" 30" rows="5" required><%= camp.description %></textarea>
+                </div>
+                <div class="mb-3">
+                    <div>
+                        <label class="form-label" for="price">Price</label>
+                    </div>
+                    <div class="input-group">
+                        <span class="input-group-text">$</span>
+                        <input type="text" class="form-control" placeholder="0.00" aria-label="price"
+                            aria-describedby="campground price" id="price" name="campground[price]"
+                            value="<%= camp.price %>" required>
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label" for="location">Location</label>
+                    <input class="form-control" type="text" id="location" name="campground[location]"
+                        value="<%= camp.location %>" required>
+                </div>
+                <div class="input-group mb-3">
+                    <input type="file" class="form-control" id="inputGroupFile02" name="image" multiple>
+                </div>
+
+                <div class="row mb-3">
+                    <% if(camp.images.length){ %> 
+                    <label class="form-label">Remove Images ?</label>
+                    <% camp.images.forEach((img,i)=>{ %>
+                    <div class="col-md-3">
+                        <div class="custom-control custom-checkbox image-checkbox">
+                            <input type="checkbox" class="custom-control-input" id="image-<%=i%>" name="deleteImages[]" value="<%= img.fileName %>">
+                            <label class="custom-control-label" for="image-<%= i %>">
+                                <img src="<%= img.thumbnail%> " alt="#" class="img-fluid">
+                            </label>
+                        </div>
+                    </div>
+                    <% }) %>
+                    <% } %> 
+                </div>
+
+                <!-- <div class="mb-3 ">
+                    <% camp.images.forEach((img,i)=>{ %> 
+                        <img src="<%= img.thumbnail%> " alt="">
+                        <div class="form-check-inline">
+                            <input type="checkbox" id="image-<%=i%>" name="deleteImages[]" value="<%= img.fileName %>">
+                        </div>
+                        <label for="image-<%= i %>">Delete ?</label>
+                        <br>
+                        <br>
+                    <% }) %> 
+                </div> -->
+                
+                <div class="col-md-6 mb-1">
+                    <button class="btn btn-success">UPDATE</button>
+                </div>
+
+            </form>
+            <form action="/campgrounds/<%= camp._id %>?_method=DELETE" method="post">
+                <button class="btn btn-danger">Delete</button>
+            </form>
+        </div>
+    </div>
+
+   
