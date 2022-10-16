@@ -1,38 +1,120 @@
-.box{
+
+
+  
+ #loader{
+    background: #000 url(/images/loader.gif) no-repeat center center;
+    background-size: 15%;
+    height: 100vh;
+    width: 100%;
+    position: fixed;
+    z-index: 100;
+ }
+
+.box {
     max-width: 50rem;
     border: .01rem solid rgba(69, 69, 69, 0.453);
     border-radius: .5rem;
 }
-.imageBox{
+
+.imageBox {
     padding: 2rem;
 }
-.mapIndex{
+
+.mapIndex {
     width: 100%;
-    height:500px;
+    height: 500px;
     border-radius: .5rem;
     box-shadow: 0 0 20px 5px rgba(72, 72, 72, 0.307);
 }
-.mapShowPage{
-    width:100%;
+
+.mapShowPage {
+    width: 100%;
     height: 300px;
     border-radius: .5rem;
     margin-bottom: 1rem;
 }
-.carouselImg{
+
+.carouselImg {
     border-radius: .5rem;
-    
-}
-.success{
-    width: 2rem;
-    background-color : #5adbb5
+
 }
 
-@media(max-width: 500px){
-    .mapIndex{
+.success {
+    width: 2rem;
+    background-color: #5adbb5
+}
+
+/* to show only 3 lines of description in index page */
+
+#cardDescription {
+    padding-right: 1em;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+}
+
+/* obey white space and new lines */
+.preWrap {
+    white-space: pre-wrap;
+}
+
+@media(max-width: 500px) {
+    .mapIndex {
         height: 200px;
     }
-    .mapShowPage{
+
+    .mapShowPage {
         height: 200px;
         width: 100%;
     }
+}
+
+/* review dropdown */
+.menu-nav {
+
+    display: flex;
+    justify-content: space-between;
+}
+
+.menu-item {
+    color: #FCC;
+    padding: 3px;
+}
+
+.three-dots:after {
+    cursor: pointer;
+    color: #444;
+    content: '\2807';
+    font-size: 20px;
+    padding: 0 5px;
+}
+
+
+.dropdown {
+    position: absolute;
+    right: 10px;
+    background-color: rgb(255, 255, 255);
+
+    outline: none;
+    opacity: 0;
+    z-index: -1;
+    max-height: 0;
+    transition: opacity 0.1s, z-index 0.1s, max-height 5s;
+}
+
+.dropdown-container:focus {
+    outline: none;
+}
+
+.dropdown-container:focus .dropdown {
+    opacity: 1;
+    z-index: 100;
+    max-height: 100vh;
+    transition: opacity 0.2s, z-index 0.2s, max-height 0.2s;
+}
+
+.btnDelete:hover {
+    background-color: rgb(216, 216, 216);
 }
