@@ -53,11 +53,13 @@
 }
 
 .carousel-item {
-    height: 400px;
+    
+    max-height: 400px;
 }
 
 .carousel-inner {
     border-radius: 1em;
+    
 }
 
 .success {
