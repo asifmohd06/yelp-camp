@@ -17,7 +17,21 @@
 }
 
 .imageBox {
-    padding: 2rem;
+    padding : 2em;
+    
+}
+
+.img-container{
+    height: 200px;
+    border-radius: .5em;
+    overflow: hidden;
+}
+
+.imghover{
+    transition: transform 0.3s ease-in-out ;
+}
+.imghover:hover{
+    transform: scale(1.1) rotate(3deg);
 }
 
 .mapIndex {
@@ -33,10 +47,11 @@
     border-radius: .5rem;
     margin-bottom: 1rem;
 }
-
-.carouselImg {
-    border-radius: .5rem;
-
+.carousel-item{
+    height:400px;  
+}
+.carousel-inner{
+    border-radius: 1em; 
 }
 
 .success {
@@ -118,3 +133,4 @@
 .btnDelete:hover {
     background-color: rgb(216, 216, 216);
 }
+

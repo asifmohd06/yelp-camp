@@ -20,7 +20,7 @@ const User = require('./models/user')
 const mongoSanitize = require('express-mongo-sanitize')// to sanitize querries and req from passing symbols to mongodb
 const helmet = require('helmet') // a node package containing a group of middlewares for security
 const mongoDbStore = require('connect-mongo')
-const dburl = process.env.DB_URL || 'mongodb://localhost:27017/yelp-camp'
+const dburl = /* process.env.DB_URL  || */ 'mongodb://localhost:27017/yelp-camp' /* process.env.DB_URL || */
 const secret = process.env.SECRET || 'itsasecret'
 const port = process.env.PORT || 3000
 

@@ -26,6 +26,21 @@ module.exports.renderShow = async (req, res) => {
     res.render('campgrounds/show', { camp })
 }
 
+module.exports.searchCamp = async (req, res) => {
+    const query = req.query.searchQuery
+    if (!query) {
+        return res.redirect('/campgrounds')
+    }
+
+    const campgrounds = await campground.find({ "title": { "$regex": query, "$options": "i" } })
+    if (campgrounds.length===0) {
+        req.flash('error', 'No such Campgrounds')
+        return res.redirect('/campgrounds')
+    }
+    res.render('campgrounds/index', { campgrounds })
+
+}
+
 module.exports.createCampground = async (req, res) => { // campValidator acts as a middleware
     const geoData = await geoCoder.forwardGeocode({
         query: req.body.campground.location,
