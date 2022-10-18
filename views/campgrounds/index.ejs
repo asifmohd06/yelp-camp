@@ -1,9 +1,24 @@
 <% layout('layouts/boilerPlate') %>
 <div class="mt-4 text-center mb-3"><h1>All Campgrounds</h1></div>
+  
 <div id="map" class=" mapIndex"></div>
+<div class="dropdown float-end mt-2">
+    <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+      Sort
+    </button>
+    <% if(0===0){%>
+    <ul class="dropdown-menu">
+    <form action="/campgrounds" method="get">
+      <li><button class="dropdown-item" data-key="order1" name="order" value = 1 >Price : Low to high</button></li>
+      <li><button class="dropdown-item" data-key="order2" name="order" value = 2 >Price : High to low</button></li>
+    </form>
+    </ul>
+    <% } %>
+  </div>
+
 <br>
     <% for(let campground of campgrounds){ %>
-        <div class="card mb-3 shadow" >
+        <div class="card mb-3 shadow mt-5" >
             <div class="row">
                 <div class="col-md-4 imageBox">
                     <div class="img-container">

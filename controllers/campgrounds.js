@@ -7,8 +7,32 @@ const mapBoxToken = process.env.MAPBOX_TOKEN
 const geoCoder = mbxGeocoding({ accessToken: mapBoxToken })
 
 module.exports.index = async (req, res) => { // catchAsync is used instead of try and catch on every async functions
-    const campgrounds = await campground.find()
-    res.render('campgrounds/index', { campgrounds })
+    
+    const order = req.query.order
+    if (!order) {
+        console.log('no order')
+        const campgrounds = await campground.find()
+        return res.render('campgrounds/index', { campgrounds })
+    }
+    if (order == 1) {
+        const campgrounds = await campground.find()
+        const compareNumbers = (a, b) => {
+            return a.price - b.price;
+        }
+        campgrounds.sort(compareNumbers)
+        return res.render('campgrounds/index', { campgrounds })
+    }
+    if (order == 2) {
+        console.log(order)
+        const campgrounds = await campground.find()
+        const compareNumbers = (a, b) => {
+            return b.price - a.price;
+        }
+        campgrounds.sort(compareNumbers)
+        return res.render('campgrounds/index', { campgrounds })
+    }
+
+
 }
 
 module.exports.createForm = (req, res) => {
@@ -32,12 +56,13 @@ module.exports.searchCamp = async (req, res) => {
         return res.redirect('/campgrounds')
     }
 
-    const campgrounds = await campground.find({ "title": { "$regex": query, "$options": "i" } })
-    if (campgrounds.length===0) {
+    const campgrounds = await campground.find({ $or: [{"title": { "$regex": query, "$options": "i" }}, {"location": { "$regex": query, "$options": "i" }} ] })
+
+    if (campgrounds.length === 0) {
         req.flash('error', 'No such Campgrounds')
         return res.redirect('/campgrounds')
     }
-    res.render('campgrounds/index', { campgrounds })
+    res.render('campgrounds/index', { campgrounds,query })
 
 }
 
@@ -91,7 +116,7 @@ module.exports.makeUpdate = async (req, res) => {
 
 module.exports.delete = async (req, res) => {
     const { id } = req.params
-    const camp= await campground.findById(id)
+    const camp = await campground.findById(id)
     camp.images.forEach(async (image) => {
         await cloudinary.uploader.destroy(image.fileName)
     });

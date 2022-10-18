@@ -115,7 +115,7 @@
 }
 
 
-.dropdown {
+.dropdown-container > .dropdown {
     position: absolute;
     right: 10px;
     background-color: rgb(255, 255, 255);
@@ -140,4 +140,7 @@
 
 .btnDelete:hover {
     background-color: rgb(216, 216, 216);
+}
+.accordion{
+    max-width: 10em;
 }

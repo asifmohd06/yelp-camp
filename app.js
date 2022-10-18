@@ -20,9 +20,10 @@ const User = require('./models/user')
 const mongoSanitize = require('express-mongo-sanitize')// to sanitize querries and req from passing symbols to mongodb
 const helmet = require('helmet') // a node package containing a group of middlewares for security
 const mongoDbStore = require('connect-mongo')
-const dburl =   process.env.DB_URL  || 'mongodb://localhost:27017/yelp-camp' /* process.env.DB_URL || */
+const dburl =   'mongodb://localhost:27017/yelp-camp' /* process.env.DB_URL || */
 const secret = process.env.SECRET || 'itsasecret'
 const port = process.env.PORT || 3000
+const axios=require('axios')
 
 // process.env.DB_URL  || 
 
@@ -50,7 +51,9 @@ const scriptSrcUrls = [
     "https://kit.fontawesome.com/",
     "https://cdnjs.cloudflare.com/",
     "https://cdn.jsdelivr.net",
-    "https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"
+    "https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js",
+    "https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js",
+    "https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.min.js"
 ]
 
 const styleSrcUrls = [
@@ -60,7 +63,8 @@ const styleSrcUrls = [
     "https://api.tiles.mapbox.com/",
     "https://fonts.googleapis.com/",
     "https://use.fontawesome.com/",
-    "https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css"
+    "https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css",
+    "https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"
 ];
 const connectSrcUrls = [
     "https://api.mapbox.com/",
