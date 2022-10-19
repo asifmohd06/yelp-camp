@@ -6,33 +6,41 @@ const mapBoxToken = process.env.MAPBOX_TOKEN
 
 const geoCoder = mbxGeocoding({ accessToken: mapBoxToken })
 
+let searchedCamp = []
+
 module.exports.index = async (req, res) => { // catchAsync is used instead of try and catch on every async functions
-    
     const order = req.query.order
     if (!order) {
-        console.log('no order')
         const campgrounds = await campground.find()
+        searchedCamp = []
         return res.render('campgrounds/index', { campgrounds })
+    }
+    const sortfn=(campgrounds)=>{ 
+        const compareNumbers = (a, b) => {
+            if(order==1){
+                return a.price - b.price;
+            }else{
+                return b.price - a.price
+            }
+    }
+    campgrounds.sort(compareNumbers)
+    return res.render('campgrounds/index', { campgrounds })
+    }
+    const callSortfn=async ()=>{
+        if (searchedCamp.length === 0) {
+            const camp = await campground.find()
+            sortfn(camp)
+        } else {
+            const camp = [...searchedCamp]
+            sortfn(camp)
+        }
     }
     if (order == 1) {
-        const campgrounds = await campground.find()
-        const compareNumbers = (a, b) => {
-            return a.price - b.price;
-        }
-        campgrounds.sort(compareNumbers)
-        return res.render('campgrounds/index', { campgrounds })
+        callSortfn()
     }
     if (order == 2) {
-        console.log(order)
-        const campgrounds = await campground.find()
-        const compareNumbers = (a, b) => {
-            return b.price - a.price;
-        }
-        campgrounds.sort(compareNumbers)
-        return res.render('campgrounds/index', { campgrounds })
+        callSortfn()
     }
-
-
 }
 
 module.exports.createForm = (req, res) => {
@@ -56,13 +64,14 @@ module.exports.searchCamp = async (req, res) => {
         return res.redirect('/campgrounds')
     }
 
-    const campgrounds = await campground.find({ $or: [{"title": { "$regex": query, "$options": "i" }}, {"location": { "$regex": query, "$options": "i" }} ] })
+    const campgrounds = await campground.find({ $or: [{ "title": { "$regex": query, "$options": "i" } }, { "location": { "$regex": query, "$options": "i" } }] })
+    searchedCamp = [...campgrounds]
 
     if (campgrounds.length === 0) {
         req.flash('error', 'No such Campgrounds')
         return res.redirect('/campgrounds')
     }
-    res.render('campgrounds/index', { campgrounds,query })
+    res.render('campgrounds/index', { campgrounds, query })
 
 }
 
